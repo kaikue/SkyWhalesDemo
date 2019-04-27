@@ -39,6 +39,7 @@ public class WhaleMovement : MonoBehaviour
 			speed = Mathf.Min(speed + ACCELERATION * Time.fixedDeltaTime, MAX_SPEED);
 		}
 
+		rb.velocity = Vector3.zero;
 		rb.MovePosition(rb.position + GetVel() * Time.fixedDeltaTime);
 	}
 
