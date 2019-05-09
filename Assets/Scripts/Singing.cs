@@ -9,7 +9,10 @@ public class Singing : MonoBehaviour
 	private const float FADE_OUT_TIME = 1;
 	private const float FADE_IN_TIME = 0.5f;
 
+	private const float CURSOR_RADIUS = 80;
+
 	public Image songImage;
+	public Image cursorImage;
 
 	private Coroutine crtFadeIn;
 	private Coroutine crtFadeOut;
@@ -25,15 +28,24 @@ public class Singing : MonoBehaviour
 		float inputY = Input.GetAxis("SongVertical");
 		if (inputX == 0 && inputY == 0)
 		{
-			if (crtFadeIn != null) StopCoroutine(crtFadeIn);
-			if (crtFadeOut == null) crtFadeOut = StartCoroutine(FadeOut());
+			/*if (crtFadeIn != null) StopCoroutine(crtFadeIn);
+			if (crtFadeOut == null) crtFadeOut = StartCoroutine(FadeOut());*/
+			SetColor(0);
 		}
 		else
 		{
-			if (crtFadeOut != null) StopCoroutine(crtFadeOut);
-			if (crtFadeIn == null) crtFadeIn = StartCoroutine(FadeIn());
+			/*if (crtFadeOut != null) StopCoroutine(crtFadeOut);
+			if (crtFadeIn == null) crtFadeIn = StartCoroutine(FadeIn());*/
+			SetColor(1);
+			MoveCursor(inputX, inputY);
 		}
     }
+
+	private void MoveCursor(float inputX, float inputY)
+	{
+		cursorImage.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(inputX * CURSOR_RADIUS, inputY * CURSOR_RADIUS, 0);
+		//cursorImage.transform.position = new Vector3(inputX * CURSOR_RADIUS, inputY * CURSOR_RADIUS, 0);
+	}
 
 	private IEnumerator FadeOut()
 	{
@@ -60,6 +72,8 @@ public class Singing : MonoBehaviour
 
 	private void SetColor(float a)
 	{
-		songImage.color = new Color(1, 1, 1, a);
+		Color c = new Color(1, 1, 1, a);
+		songImage.color = c;
+		cursorImage.color = c;
 	}
 }
