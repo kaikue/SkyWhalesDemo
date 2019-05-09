@@ -61,7 +61,7 @@ public class Singing : MonoBehaviour
 	private void PlayNoteAngle(float theta)
 	{
 		int n = (int)Mathf.Round(theta / (Mathf.PI / 4));
-		PlayNote((n + 4) % 7);
+		PlayNote((n + 4) % 8);
 	}
 
 	private void PlayNote(int n)
