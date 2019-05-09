@@ -45,12 +45,22 @@ public class Singing : MonoBehaviour
 	{
 		float theta = Mathf.Atan2(inputY, inputX);
 		float r = Mathf.Sqrt(inputX * inputX + inputY * inputY);
-		float rS = Mathf.Clamp(r, -1, 1) * CURSOR_RADIUS;
+		float rS = Mathf.Clamp(r, 0, 1) * CURSOR_RADIUS;
 		float x = rS * Mathf.Cos(theta);
 		float y = rS * Mathf.Sin(theta);
 		cursorImage.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(x, y, 0);
 		//cursorImage.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(inputX * CURSOR_RADIUS, inputY * CURSOR_RADIUS, 0);
 		//cursorImage.transform.position = new Vector3(inputX * CURSOR_RADIUS, inputY * CURSOR_RADIUS, 0);
+
+		if (rS == 1)
+		{
+			PlayNoteAngle(theta);
+		}
+	}
+
+	private void PlayNoteAngle(float theta)
+	{
+
 	}
 
 	private IEnumerator FadeOut()
