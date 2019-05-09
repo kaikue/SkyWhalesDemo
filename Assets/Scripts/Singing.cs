@@ -11,8 +11,13 @@ public class Singing : MonoBehaviour
 
 	private const float CURSOR_RADIUS = 80;
 
+	private static int[] NOTES = new int[] { 0, 2, 4, 5, 7, 9, 11, 12 };
+
 	public Image songImage;
 	public Image cursorImage;
+	public AudioSource noteSrc;
+
+	private int lastNote = -1;
 
 	private Coroutine crtFadeIn;
 	private Coroutine crtFadeOut;
@@ -31,6 +36,7 @@ public class Singing : MonoBehaviour
 			/*if (crtFadeIn != null) StopCoroutine(crtFadeIn);
 			if (crtFadeOut == null) crtFadeOut = StartCoroutine(FadeOut());*/
 			SetColor(0);
+			lastNote = -1;
 		}
 		else
 		{
@@ -61,12 +67,20 @@ public class Singing : MonoBehaviour
 	private void PlayNoteAngle(float theta)
 	{
 		int n = (int)Mathf.Round(theta / (Mathf.PI / 4));
-		PlayNote((n + 4) % 8);
+		int n2 = 7 - (n + 5) % 8;
+		PlayNote(n2);
 	}
 
 	private void PlayNote(int n)
 	{
-		print(n);
+		if (lastNote == n) return;
+
+		lastNote = n;
+		float transpose = -4;
+		int note = NOTES[n];
+		float pitch = Mathf.Pow(2, (note + transpose) / 12f);
+		noteSrc.pitch = pitch;
+		noteSrc.Play();
 	}
 
 	private IEnumerator FadeOut()
