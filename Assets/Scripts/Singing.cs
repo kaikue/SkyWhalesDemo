@@ -11,7 +11,8 @@ public class Singing : MonoBehaviour
 
 	private const float CURSOR_RADIUS = 80;
 
-	private static int[] NOTES = new int[] { 0, 2, 4, 5, 7, 9, 11, 12 };
+	//private static int[] NOTES = new int[] { 0, 2, 4, 5, 7, 9, 11, 12 }; // c major
+	private static int[] NOTES = new int[] { -6, -4, -3, -1, 1, 2, 4, 6 }; // b flat minor
 
 	public Image songImage;
 	public Image cursorImage;
