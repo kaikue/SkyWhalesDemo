@@ -43,7 +43,13 @@ public class Singing : MonoBehaviour
 
 	private void MoveCursor(float inputX, float inputY)
 	{
-		cursorImage.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(inputX * CURSOR_RADIUS, inputY * CURSOR_RADIUS, 0);
+		float theta = Mathf.Atan2(inputY, inputX);
+		float r = Mathf.Sqrt(inputX * inputX + inputY * inputY);
+		float rS = Mathf.Clamp(r, -1, 1) * CURSOR_RADIUS;
+		float x = rS * Mathf.Cos(theta);
+		float y = rS * Mathf.Sin(theta);
+		cursorImage.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(x, y, 0);
+		//cursorImage.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(inputX * CURSOR_RADIUS, inputY * CURSOR_RADIUS, 0);
 		//cursorImage.transform.position = new Vector3(inputX * CURSOR_RADIUS, inputY * CURSOR_RADIUS, 0);
 	}
 
