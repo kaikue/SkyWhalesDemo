@@ -51,8 +51,8 @@ public class Singing : MonoBehaviour
 		cursorImage.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(x, y, 0);
 		//cursorImage.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(inputX * CURSOR_RADIUS, inputY * CURSOR_RADIUS, 0);
 		//cursorImage.transform.position = new Vector3(inputX * CURSOR_RADIUS, inputY * CURSOR_RADIUS, 0);
-
-		if (rS == 1)
+		
+		if (rS == CURSOR_RADIUS)
 		{
 			PlayNoteAngle(theta);
 		}
@@ -60,7 +60,13 @@ public class Singing : MonoBehaviour
 
 	private void PlayNoteAngle(float theta)
 	{
+		int n = (int)Mathf.Round(theta / (Mathf.PI / 4));
+		PlayNote((n + 4) % 7);
+	}
 
+	private void PlayNote(int n)
+	{
+		print(n);
 	}
 
 	private IEnumerator FadeOut()
