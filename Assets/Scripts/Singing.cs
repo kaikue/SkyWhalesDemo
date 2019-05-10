@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -126,6 +127,18 @@ public class Singing : MonoBehaviour
 	private void BreakEffect()
 	{
 		print("BOOM");
+		RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.forward, 20);
+		if (hits.Length > 0) {
+			RaycastHit hit = hits.OrderBy(h => h.distance).First();
+			/*IEnumerable orderedHits = hits.OrderBy(h => h.distance);
+			foreach (RaycastHit hit in orderedHits)
+			{*/
+			GameObject other = hit.collider.gameObject;
+			if (other.CompareTag("Breakable"))
+			{
+				Destroy(other);
+			}
+		}
 	}
 
 	private IEnumerator FadeOut()
