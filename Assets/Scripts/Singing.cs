@@ -12,7 +12,8 @@ public class Singing : MonoBehaviour
 	private const float CURSOR_RADIUS = 80;
 
 	//private static int[] NOTES = new int[] { 0, 2, 4, 5, 7, 9, 11, 12 }; // c major
-	private static int[] NOTES = new int[] { -6, -4, -3, -1, 1, 2, 4, 6 }; // b flat minor
+	//private static int[] NOTES = new int[] { -6, -4, -3, -1, 1, 2, 4, 6 }; // b flat minor
+	private static int[] NOTES = new int[] { -2, 0, 1, 3, 5, 6, 8, 10 }; // b flat minor
 
 	public Image songImage;
 	public Image cursorImage;
@@ -59,7 +60,7 @@ public class Singing : MonoBehaviour
 		//cursorImage.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(inputX * CURSOR_RADIUS, inputY * CURSOR_RADIUS, 0);
 		//cursorImage.transform.position = new Vector3(inputX * CURSOR_RADIUS, inputY * CURSOR_RADIUS, 0);
 		
-		if (rS == CURSOR_RADIUS)
+		if (rS > 0.8f * CURSOR_RADIUS)
 		{
 			PlayNoteAngle(theta);
 		}
