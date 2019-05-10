@@ -1025,6 +1025,7 @@ MonoBehaviour:
   songImage: {fileID: 1738727259}
   cursorImage: {fileID: 1625671548}
   noteSrc: {fileID: 1149860576}
+  transpose: -2
 --- !u!82 &1149860576
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1035,7 +1036,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4c018fc3cbb993c48949d38b60742845, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d945835636bf99641a39356909b41c2a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

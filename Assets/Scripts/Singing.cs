@@ -22,6 +22,7 @@ public class Singing : MonoBehaviour
 	public Image songImage;
 	public Image cursorImage;
 	public AudioSource noteSrc;
+	public int transpose;
 
 	private int lastNote = -1;
 	private List<int> playedNotes = new List<int>();
@@ -85,7 +86,6 @@ public class Singing : MonoBehaviour
 		if (lastNote == n) return;
 
 		lastNote = n;
-		float transpose = -4;
 		int note = NOTES[n];
 		float pitch = Mathf.Pow(2, (note + transpose) / 12f);
 		noteSrc.pitch = pitch;
