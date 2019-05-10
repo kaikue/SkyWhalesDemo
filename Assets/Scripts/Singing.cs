@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,16 +11,19 @@ public class Singing : MonoBehaviour
 	private const float FADE_IN_TIME = 0.5f;
 
 	private const float CURSOR_RADIUS = 80;
-
+	
 	//private static int[] NOTES = new int[] { 0, 2, 4, 5, 7, 9, 11, 12 }; // c major
 	//private static int[] NOTES = new int[] { -6, -4, -3, -1, 1, 2, 4, 6 }; // b flat minor
-	private static int[] NOTES = new int[] { -2, 0, 1, 3, 5, 6, 8, 10 }; // b flat minor
+	private static int[] NOTES = new int[] { -2, 0, 1, 3, 5, 6, 8, 10 }; // d flat minor
+
+	private Dictionary<int[], Action> songs = new Dictionary<int[], Action>();
 
 	public Image songImage;
 	public Image cursorImage;
 	public AudioSource noteSrc;
 
 	private int lastNote = -1;
+	private List<int> playedNotes = new List<int>();
 
 	private Coroutine crtFadeIn;
 	private Coroutine crtFadeOut;
@@ -27,6 +31,8 @@ public class Singing : MonoBehaviour
     private void Start()
     {
 		SetColor(0);
+
+		songs.Add(new int[] { 0, 5, 4 }, BreakEffect);
     }
 	
     private void Update()
@@ -83,6 +89,43 @@ public class Singing : MonoBehaviour
 		float pitch = Mathf.Pow(2, (note + transpose) / 12f);
 		noteSrc.pitch = pitch;
 		noteSrc.Play();
+
+		playedNotes.Add(n);
+		CheckSongs();
+	}
+
+	private void CheckSongs()
+	{
+		foreach(KeyValuePair<int[], Action> song in songs)
+		{
+			CheckSong(song.Key, song.Value);
+		}
+	}
+
+	private bool CheckSong(int[] song, Action effect)
+	{
+		if (playedNotes.Count < song.Length)
+		{
+			return false;
+		}
+
+		int start = playedNotes.Count - song.Length;
+
+		for (int i = 0; i < song.Length; i++)
+		{
+			if (playedNotes[start + i] != song[i])
+			{
+				return false;
+			}
+		}
+
+		effect();
+		return true;
+	}
+
+	private void BreakEffect()
+	{
+		print("BOOM");
 	}
 
 	private IEnumerator FadeOut()
