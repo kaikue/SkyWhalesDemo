@@ -23,6 +23,7 @@ public class Singing : MonoBehaviour
 	public Image cursorImage;
 	public AudioSource noteSrc;
 	public int transpose;
+	public GameObject breakParticles;
 
 	private int lastNote = -1;
 	private List<int> playedNotes = new List<int>();
@@ -136,6 +137,7 @@ public class Singing : MonoBehaviour
 			GameObject other = hit.collider.gameObject;
 			if (other.CompareTag("Breakable"))
 			{
+				Instantiate(breakParticles, other.transform.position, Quaternion.identity);
 				Destroy(other);
 			}
 		}
