@@ -22,7 +22,9 @@ public class Singing : MonoBehaviour
 	public Image songImage;
 	public Image cursorImage;
 	public AudioSource noteSrc;
+	public AudioSource whaleSrc;
 	public int transpose;
+	public int whaleTranspose;
 	public GameObject breakParticles;
 
 	private int lastNote = -1;
@@ -91,6 +93,10 @@ public class Singing : MonoBehaviour
 		float pitch = Mathf.Pow(2, (note + transpose) / 12f);
 		noteSrc.pitch = pitch;
 		noteSrc.Play();
+
+		float whalePitch = Mathf.Pow(2, (note + whaleTranspose) / 12f);
+		whaleSrc.pitch = whalePitch;
+		whaleSrc.Play();
 
 		playedNotes.Add(n);
 		CheckSongs();
