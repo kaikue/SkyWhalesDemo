@@ -15,14 +15,14 @@ public class Singing : MonoBehaviour
 	
 	//private static int[] NOTES = new int[] { 0, 2, 4, 5, 7, 9, 11, 12 }; // c major
 	//private static int[] NOTES = new int[] { -6, -4, -3, -1, 1, 2, 4, 6 }; // b flat minor
-	private static int[] NOTES = new int[] { -2, 0, 1, 3, 5, 6, 8, 10 }; // d flat minor
+	//private static int[] NOTES = new int[] { -2, 0, 1, 3, 5, 6, 8, 10 }; // d flat minor
+	private static int[] NOTES = new int[] { -8, -6, -5, -3, -1, 0, 2, 4 }; // e minor
 
 	private Dictionary<int[], Action> songs = new Dictionary<int[], Action>();
 
 	public Image songImage;
 	public Image cursorImage;
-	public AudioSource noteSrc;
-	public AudioSource whaleSrc;
+	public GameObject notePrefab;
 	public int transpose;
 	public int whaleTranspose;
 	public GameObject breakParticles;
@@ -37,7 +37,7 @@ public class Singing : MonoBehaviour
     {
 		SetColor(0);
 
-		songs.Add(new int[] { 0, 5, 4 }, BreakEffect);
+		songs.Add(new int[] { 0, 3, 2 }, BreakEffect);
     }
 	
     private void Update()
@@ -91,12 +91,17 @@ public class Singing : MonoBehaviour
 		lastNote = n;
 		int note = NOTES[n];
 		float pitch = Mathf.Pow(2, (note + transpose) / 12f);
-		noteSrc.pitch = pitch;
-		noteSrc.Play();
+
+		GameObject noteObj = Instantiate(notePrefab);
+		Note noteScript = noteObj.GetComponent<Note>();
+		Destroy(noteObj, 5);
+
+		noteScript.noteSrc.pitch = pitch;
+		noteScript.noteSrc.Play();
 
 		float whalePitch = Mathf.Pow(2, (note + whaleTranspose) / 12f);
-		whaleSrc.pitch = whalePitch;
-		whaleSrc.Play();
+		noteScript.whaleSrc.pitch = whalePitch;
+		noteScript.whaleSrc.Play();
 
 		playedNotes.Add(n);
 		CheckSongs();
